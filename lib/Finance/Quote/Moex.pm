@@ -69,7 +69,7 @@ sub methods { return (moex_stock => \&moex_stock,
 					  }
 
 {
-  my @labels_moex = qw/name price date isodate currency/;
+  my @labels_moex = qw/name last date isodate currency/;
   my @labels_micex = qw/name last open low high close waprice date isodate currency/;
 	
   sub labels { return (moex_bond_ofz => \@labels_moex,
@@ -232,7 +232,7 @@ sub moex {
 					$info{$stock, "name"} = $stock; 
 					#$info{$stock, "shortname"} = $q[$fields{'SHORTNAME'}]; 
 					
-					$currency = $q[$fields{'CURRENCYID'}];
+					$currency = $q[$fields{'FACEUNIT'}];
 					if ($currency eq 'SUR')
 						{
 						$currency = "RUB";
@@ -253,7 +253,7 @@ sub moex {
 								}
 							}
 							
-						$info{$stock, "price"} = $price;
+						$info{$stock, "last"} = $price;
 						$stockhash{$stock} = 1;
 						$info{$stock, "success"} = 1;
 						}
